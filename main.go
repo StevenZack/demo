@@ -3,18 +3,25 @@ package main
 import (
 	"fmt"
 	"log"
-	"strconv"
-
-	"github.com/StevenZack/demo/network/tcp"
+	"os"
 )
 
 func main() {
-	offset, e := strconv.ParseUint("1110110111100000", 2, 16)
+	f, e := os.OpenFile("a.txt", os.O_WRONLY|os.O_CREATE, 0644)
 	if e != nil {
 		log.Println(e)
 		return
 	}
-	fmt.Printf("%b\n", offset)
-	m := tcp.Message{Flags: uint16(offset)}
-	fmt.Printf("%v\n", m.URG())
+	defer f.Close()
+	ret, e := f.Seek(2, 0)
+	if e != nil {
+		log.Println(e)
+		return
+	}
+	fmt.Println("ret=", ret)
+	_, e = f.WriteAt([]byte("1"), ret)
+	if e != nil {
+		log.Println(e)
+		return
+	}
 }
