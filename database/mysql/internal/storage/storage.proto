@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package storage;
+
+message Table{
+    string name=1;
+    repeated Page pages=2;
+}
+
+message Page{
+    Table table=1;
+    int64 offset=2;
+    Page parent=3;
+    repeated Row rows=4;
+    repeated Page children=5;
+}
+
+message Row{
+    repeated string values=1;
+}
