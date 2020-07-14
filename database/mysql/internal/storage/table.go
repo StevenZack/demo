@@ -1,5 +1,11 @@
 package storage
 
+import (
+	"fmt"
+
+	"github.com/StevenZack/tools/alg"
+)
+
 func NewTable(name string) *Table {
 	return &Table{
 		Name: name,
@@ -26,6 +32,10 @@ func (t *Table) createPage(parent *Page, r *Row) *Page {
 	return page
 }
 
-func (t *Table) Print()  {
-	
+func (t *Table) Print() {
+	if len(t.Pages) == 0 {
+		fmt.Println("{}")
+		return
+	}
+	alg.PrintTree(t.Pages[0])
 }

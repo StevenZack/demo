@@ -15,4 +15,5 @@ func main() {
 		log.Println(e)
 		return
 	}
+	table.Print()
 }

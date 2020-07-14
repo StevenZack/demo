@@ -3,6 +3,8 @@ package storage
 import (
 	"errors"
 	sync "sync"
+
+	"github.com/StevenZack/tools/alg"
 )
 
 const (
@@ -44,3 +46,19 @@ func (p *Page) insertRow(i int, r *Row) {
 	p.Children = append(p.Children[:i], append([]*Page{nil}, p.Children[1:]...)...)
 	pageLocker.Unlock()
 }
+
+func (p *Page) Child(i int) alg.ITreeNode {
+	return p.Children[i]
+}
+
+func (p *Page) ChildNum() int {
+	return len(p.Children)
+}
+
+// func (p *Page) String() string {
+// 	ss := []string{}
+// 	for _, r := range p.Rows {
+// 		ss = append(ss, r.Key())
+// 	}
+// 	return "{" + strings.Join(ss, ",") + "}"
+// }
