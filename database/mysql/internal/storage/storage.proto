@@ -4,7 +4,8 @@ package storage;
 
 message Table{
     string name=1;
-    repeated Page pages=2;
+    repeated string columns=2;
+    repeated Page pages=3;
 }
 
 message Page{
